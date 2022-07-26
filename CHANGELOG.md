@@ -1,3 +1,7 @@
+## [1.0.3]
+
+* Add debug log
+
 ## [1.0.2]
 
 * Clean

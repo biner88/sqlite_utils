@@ -47,6 +47,7 @@ class SqlliteUtils {
   ///   where:{
   ///   'id':['>',1],
   ///   }
+  ///   debug: true,
   /// );
   ///```
   Future<int> count({
@@ -55,6 +56,7 @@ class SqlliteUtils {
     where = const {},
     group = '',
     having = '',
+    debug = false,
   }) async {
     if (group != '') group = 'GROUP BY $group';
     if (having != '') having = 'HAVING $having';
@@ -62,8 +64,11 @@ class SqlliteUtils {
     if (whereTp != '') {
       whereTp = 'WHERE $whereTp';
     }
-    int? count = Sqflite.firstIntValue(await query(
-        'SELECT COUNT($fields) FROM $table $whereTp $group $having'));
+    String sql = 'SELECT COUNT($fields) FROM $table $whereTp $group $having';
+    if (debug) {
+      print(sql);
+    }
+    int? count = Sqflite.firstIntValue(await query(sql));
     return count ?? 0;
   }
 
@@ -82,12 +87,15 @@ class SqlliteUtils {
   ///   },
   ///   where:{
   ///   'id':1,
-  /// });
+  /// },
+  /// debug: true,
+  /// );
   ///```
   Future<int> update({
     required String table,
     required Map<String, dynamic> updateData,
     required where,
+    debug: false,
   }) async {
     String setTp = _whereParse(updateData, updateAndDelete: true);
     if (setTp != '') {
@@ -101,6 +109,10 @@ class SqlliteUtils {
     List whereValueTp = _valueParse(where);
     List values = [...setValueTp, ...whereValueTp];
     String sql = 'UPDATE $table $setTp $whereTp';
+    if (debug) {
+      print(sql);
+      print(values);
+    }
     Future<int> count = (await db).rawUpdate(sql, values);
     return count;
   }
@@ -108,21 +120,27 @@ class SqlliteUtils {
   /// ```
   /// await db.delete(
   ///   table:'table',
-  ///   where: {'id':1}
+  ///   where: {'id':1},
+  ///   debug: true,
   /// );
   /// ```
   Future<int> delete({
     required String table,
     fields = '*',
     where = const {},
-    order = '',
+    debug = false,
   }) async {
     String whereTp = _whereParse(where, updateAndDelete: true);
     if (whereTp != '') {
       whereTp = 'WHERE $whereTp';
     }
     List valueTp = _valueParse(where);
-    return (await db).rawDelete('DELETE FROM $table $whereTp', valueTp);
+    String sql = 'DELETE FROM $table $whereTp';
+    if (debug) {
+      print(sql);
+      print(valueTp);
+    }
+    return (await db).rawDelete(sql, valueTp);
   }
 
   ///```
@@ -133,6 +151,7 @@ class SqlliteUtils {
   ///   having: 'name',
   ///   order: 'id desc',
   ///   where: {'email': 'xxx@google.com'},
+  ///   debug: true,
   /// );
   ///```
   Future<Map> getOne({
@@ -142,6 +161,7 @@ class SqlliteUtils {
     group = '',
     having = '',
     order = '',
+    debug: false,
   }) async {
     List<dynamic> res = await getAll(
       table: table,
@@ -151,6 +171,7 @@ class SqlliteUtils {
       having: having,
       order: order,
       limit: 1,
+      debug: debug,
     );
 
     if (res.isNotEmpty) {
@@ -179,6 +200,7 @@ class SqlliteUtils {
     having = '',
     order = '',
     limit = '',
+    debug: false,
   }) async {
     if (group != '') group = 'GROUP BY $group';
     if (having != '') having = 'HAVING $having';
@@ -190,6 +212,9 @@ class SqlliteUtils {
     limit = _limitParse(limit);
     String sql =
         'SELECT $fields FROM $table $whereTp $group $having $order $limit';
+    if (debug) {
+      print(sql);
+    }
     return (await db).rawQuery(sql);
   }
 
@@ -215,7 +240,7 @@ class SqlliteUtils {
     required String table,
     required List<Map<String, dynamic>> insertData,
     replace = false,
-    debug = true,
+    debug = false,
   }) async {
     if (insertData.isEmpty) {
       throw ('insertData.length!=0');
@@ -237,11 +262,13 @@ class SqlliteUtils {
   ///     'create_time': 1620577162252,
   ///     'update_time': 1620577162252,
   ///   },
+  ///   debug: true,
   /// );
   ///```
   Future<int> insert({
     required String table,
     required Map<String, dynamic> insertData,
+    debug: false,
   }) async {
     if (insertData.isEmpty) {
       throw ('insertData.length!=0');
@@ -259,6 +286,9 @@ class SqlliteUtils {
     String fieldsString = fields.join(',');
     String valuesString = values.join(',');
     String sql = 'INSERT INTO $table ($fieldsString) VALUES ($valuesString)';
+    if (debug) {
+      print(sql);
+    }
     return (await db).transaction((txn) async {
       int newId = await txn.rawInsert(sql);
       return newId;
