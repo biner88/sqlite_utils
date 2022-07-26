@@ -132,7 +132,6 @@ class SqlliteUtils {
   ///   group: 'name',
   ///   having: 'name',
   ///   order: 'id desc',
-  ///   debug: false,
   ///   where: {'email': 'xxx@google.com'},
   /// );
   ///```
@@ -169,7 +168,6 @@ class SqlliteUtils {
   ///   having: 'name',
   ///   order: 'id desc',
   ///   limit: 10,//10 or '10 ,100'
-  ///   debug: false,
   ///   where: {'email': 'xxx@google.com','id': ['between', 1, 2],'email': ['=', 'sss@google.com'],'news_title': ['like', '%name%'],'user_id': ['>', 1]},
   /// );
   ///```
@@ -185,7 +183,6 @@ class SqlliteUtils {
     if (group != '') group = 'GROUP BY $group';
     if (having != '') having = 'HAVING $having';
     if (order != '') order = 'ORDER BY $order';
-
     String whereTp = _whereParse(where);
     if (whereTp != '') {
       whereTp = 'WHERE $whereTp';
@@ -193,6 +190,7 @@ class SqlliteUtils {
     limit = _limitParse(limit);
     String sql =
         'SELECT $fields FROM $table $whereTp $group $having $order $limit';
+    print(sql);
     return (await db).rawQuery(sql);
   }
 
@@ -361,7 +359,7 @@ class SqlliteUtils {
               } else {
                 keysTp += ' AND $key = \'$value\'';
               }
-            } else if (value is num) {
+            } else {
               if (keysTp == '') {
                 keysTp = '($key = $value)';
               } else {
