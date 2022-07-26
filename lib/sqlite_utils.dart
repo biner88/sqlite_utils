@@ -190,7 +190,6 @@ class SqlliteUtils {
     limit = _limitParse(limit);
     String sql =
         'SELECT $fields FROM $table $whereTp $group $having $order $limit';
-    print(sql);
     return (await db).rawQuery(sql);
   }
 
