@@ -1,0 +1,9 @@
+name: sqlite_utils
+description: This is [sqflite] help library,This makes sqlite easier to use and simple.
+version: 1.0.0
+homepage: https://github.com/biner88/sqlite_utils
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  sqflite: ^2.0.3
