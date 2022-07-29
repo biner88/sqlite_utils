@@ -8,7 +8,8 @@ class SqlliteUtils {
   /// Map settings = {
   ///   'database': 'loop.db',
   ///   'table': 'loopTable',
-  ///   'fields': 'id INTEGER PRIMARY KEY, uuid TEXT, start INTEGER, end INTEGER'
+  ///   'fields': 'id INTEGER PRIMARY KEY, uuid TEXT, start INTEGER, end INTEGER',
+  ///   'version':1,
   /// };
   ///```
   factory SqlliteUtils({
@@ -28,13 +29,17 @@ class SqlliteUtils {
   Future<Database> createConnectionSingle(Map settings) async {
     final conn = await openDatabase(
       '${settings['database']}',
-      version: 1,
+      version: settings['version'] ?? 1,
       onCreate: (Database db, int version) async {
         return await db.execute(
             'CREATE TABLE ${settings['table']} (${settings['fields']})');
       },
     );
     return conn;
+  }
+
+  Future<int> getVersion() async {
+    return (await db).getVersion();
   }
 
   ///```

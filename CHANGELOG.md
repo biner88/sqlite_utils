@@ -1,3 +1,7 @@
+## [1.0.4]
+
+* Add version
+
 ## [1.0.3]
 
 * Add debug log

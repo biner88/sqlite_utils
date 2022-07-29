@@ -5,14 +5,14 @@ packages:
     dependency: transitive
     description:
       name: characters
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
   collection:
     dependency: transitive
     description:
       name: collection
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
   flutter:
@@ -24,21 +24,21 @@ packages:
     dependency: transitive
     description:
       name: material_color_utilities
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4"
   meta:
     dependency: transitive
     description:
       name: meta
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
   path:
     dependency: transitive
     description:
       name: path
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
   sky_engine:
@@ -50,28 +50,28 @@ packages:
     dependency: "direct main"
     description:
       name: sqflite
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
   sqflite_common:
     dependency: transitive
     description:
       name: sqflite_common
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1+1"
   synchronized:
     dependency: transitive
     description:
       name: synchronized
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0+2"
   vector_math:
     dependency: transitive
     description:
       name: vector_math
-      url: "https://pub.flutter-io.cn"
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
 sdks:
