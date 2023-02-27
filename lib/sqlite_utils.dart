@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
-class SqlliteUtils {
+class SqliteUtils {
   late Map _settings = {};
   late Future<Database> db;
 
@@ -12,12 +12,12 @@ class SqlliteUtils {
   ///   'version':1,
   /// };
   ///```
-  factory SqlliteUtils({
+  factory SqliteUtils({
     required Map settings,
   }) {
-    return SqlliteUtils._internal(settings);
+    return SqliteUtils._internal(settings);
   }
-  SqlliteUtils._internal(Map? settings) {
+  SqliteUtils._internal(Map? settings) {
     if (settings != null) {
       _settings = settings;
     } else {
@@ -100,7 +100,7 @@ class SqlliteUtils {
     required String table,
     required Map<String, dynamic> updateData,
     required where,
-    debug: false,
+    debug = false,
   }) async {
     String setTp = _whereParse(updateData, updateAndDelete: true);
     if (setTp != '') {
@@ -166,7 +166,7 @@ class SqlliteUtils {
     group = '',
     having = '',
     order = '',
-    debug: false,
+    debug = false,
   }) async {
     List<dynamic> res = await getAll(
       table: table,
@@ -205,7 +205,7 @@ class SqlliteUtils {
     having = '',
     order = '',
     limit = '',
-    debug: false,
+    debug = false,
   }) async {
     if (group != '') group = 'GROUP BY $group';
     if (having != '') having = 'HAVING $having';
@@ -273,7 +273,7 @@ class SqlliteUtils {
   Future<int> insert({
     required String table,
     required Map<String, dynamic> insertData,
-    debug: false,
+    debug = false,
   }) async {
     if (insertData.isEmpty) {
       throw ('insertData.length!=0');
@@ -325,7 +325,7 @@ class SqlliteUtils {
     } else if (where is Map && where.isNotEmpty) {
       where.forEach((key, value) {
         if (value is String) {
-          valueTp.add('\'$value\'');
+          valueTp.add('$value');
         } else if (value is num) {
           valueTp.add(value);
         } else if (value is List) {

@@ -1,3 +1,11 @@
+## [1.0.6]
+
+* Fixed update bug
+
+## [1.0.5]
+
+* SqlliteUtils->SqliteUtils
+
 ## [1.0.4]
 
 * Add version

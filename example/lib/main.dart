@@ -4,7 +4,7 @@ import 'package:sqlite_utils/sqlite_utils.dart';
 
 Future main() async {
   var rng = new Random();
-  final db = SqlliteUtils(settings: {
+  final db = SqliteUtils(settings: {
     'database': 'testDB.db',
     'table': 'testTable',
     'fields':

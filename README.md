@@ -15,7 +15,7 @@ Flutter sqlite plugin helps extend classes.
 #### Initialization connection
 
 ```yaml
- var db = SqlliteUtils(settings: {
+ var db = SqliteUtils(settings: {
       'database': 'loop.db',
       'table': 'loopTable',
       'fields': 'id INTEGER PRIMARY KEY, uuid TEXT, start INTEGER, end INTEGER',

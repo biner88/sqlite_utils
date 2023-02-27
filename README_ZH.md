@@ -15,7 +15,7 @@ Flutter sqflite plugin 帮助扩展类.
 #### 初始化连接
 
 ```yaml
- var db = SqlliteUtils(settings: {
+ var db = SqliteUtils(settings: {
       'database': 'loop.db',
       'table': 'loopTable',
       'fields': 'id INTEGER PRIMARY KEY, uuid TEXT, start INTEGER, end INTEGER',
