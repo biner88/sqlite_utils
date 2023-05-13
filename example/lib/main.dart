@@ -6,9 +6,12 @@ Future main() async {
   var rng = new Random();
   final db = SqliteUtils(settings: {
     'database': 'testDB.db',
-    'table': 'testTable',
-    'fields':
-        'id INTEGER PRIMARY KEY, nickname TEXT, telphone TEXT, createTime INTEGER, updateTime INTEGER',
+    'tableMap': {
+      'testTable':
+          'id INTEGER PRIMARY KEY, nickname TEXT, telphone TEXT, createTime INTEGER, updateTime INTEGER',
+      'table2': 'id INTEGER PRIMARY KEY, title TEXT, titleId INTEGER',
+    },
+    'version': 1,
   });
   ////insert
   var res3 = await db.insert(

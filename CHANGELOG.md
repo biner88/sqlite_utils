@@ -1,3 +1,9 @@
+## [1.1.0]
+
+* Updated sqflite to the latest version
+* Updated dart sdk to 4.0.0
+* Added support multiple tables in one database
+
 ## [1.0.6]
 
 * Fixed update bug

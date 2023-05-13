@@ -6,9 +6,11 @@ class SqliteUtils {
 
   ///```
   /// Map settings = {
-  ///   'database': 'loop.db',
-  ///   'table': 'loopTable',
-  ///   'fields': 'id INTEGER PRIMARY KEY, uuid TEXT, start INTEGER, end INTEGER',
+  ///   'database': 'database.db',
+  ///   'tableMap': {
+  ///     'table1':'id INTEGER PRIMARY KEY, name TEXT, title INTEGER',
+  ///     'table2':'id INTEGER PRIMARY KEY, title TEXT, titleId INTEGER',
+  ///   },
   ///   'version':1,
   /// };
   ///```
@@ -20,6 +22,9 @@ class SqliteUtils {
   SqliteUtils._internal(Map? settings) {
     if (settings != null) {
       _settings = settings;
+      if (_settings['tableMap'] == null) {
+        throw ('settings tableMap is null');
+      }
     } else {
       throw ('settings is null');
     }
@@ -31,8 +36,9 @@ class SqliteUtils {
       '${settings['database']}',
       version: settings['version'] ?? 1,
       onCreate: (Database db, int version) async {
-        return await db.execute(
-            'CREATE TABLE ${settings['table']} (${settings['fields']})');
+        settings['tableMap'].forEach((table, createTableSql) async {
+          await db.execute('CREATE TABLE $table ($createTableSql)');
+        });
       },
     );
     return conn;
