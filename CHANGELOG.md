@@ -1,3 +1,7 @@
+## [1.1.2]
+
+* Updated sqflite to 2.4.2
+
 ## [1.1.0]
 
 * Updated sqflite to the latest version
